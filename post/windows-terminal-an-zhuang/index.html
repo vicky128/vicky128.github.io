@@ -1,0 +1,200 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Windows Terminal安装 | Viv&#39;s Blog</title>
+<link rel="shortcut icon" href="https://vicky128.github.io/favicon.ico?v=1653270885804">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://vicky128.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Windows Terminal安装 | Viv&#39;s Blog - Atom Feed" href="https://vicky128.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="昨天弄Ubuntu的时候再次看到有关Windows Terminal美化的视频，上一次是在少数派，我也是真的不喜欢默认的CMD或者windows power shell页面，真的太丑，但是那个时候下载Windows Terminal失败了，..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://vicky128.github.io">
+  <img class="avatar" src="https://vicky128.github.io/images/avatar.png?v=1653270885804" alt="">
+  </a>
+  <h1 class="site-title">
+    Viv&#39;s Blog
+  </h1>
+  <p class="site-description">
+    每天进步一点点
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/vicky128" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Windows Terminal安装
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-01-12
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>昨天弄Ubuntu的时候再次看到有关Windows Terminal美化的视频，上一次是在少数派，我也是真的不喜欢默认的CMD或者windows power shell页面，真的太丑，但是那个时候下载Windows Terminal失败了，今天再次遇见，那我肯定要搞啊。</p>
+<p>这次时间充裕，正儿八经按照步骤来排查原因（通过GitHub下载了Windows Terminal Preview和Windows Terminal，安装后启动不了，怎么也打不开，就报错说响应时间太长了），其实我的电脑版本都是符合的，然后偶然看到有一个视频评论说微软商店下载不了是因为Windows自动更新禁止了，我一想还真是，因为之前Windows自动更新win10以后我的IDEA出错了，拿去修排查出来可能是因为系统的问题，然后回退回之前的系统才成功，然后维修人员跟我说一般还是等稳定一段时间以后再更新，频繁要用电脑的话尽量不更新，然后就把系统的自动更新设置成时间最长的提醒，每隔一段时间再去设置一次。</p>
+<p>因为想说今天真的要尽全力把它搞出来，所以就想更新系统试试吧，也不更成win11，就win10。没想到到Windows更新那儿特别卡根本改不了之前的设置。然后按照网上的疑难解答排查，最后终于不卡了，但是检查更新报错Error 0x80080005，中文谷歌没有答案，百度也没有，换成英语谷歌才在油管看到解决方法。</p>
+<p>最后终于更新成功，然后Windows Terminal也成功打开了。最后也按照美化的视频弄出我满意的界面了。小插曲：Oh My Posh里面的主题下出来与预览不同，说是要改字体，但是在Nerd Fonts里面下载的字体还是没有解决问题，又去找说是要满足powerline，中间兜兜转转，发现字体要选择含nerd font的才行。</p>
+<p>其实中途折腾的时候搞得Ubuntu原本是找到路径的，但是突然\wsl$不起作用了，后来Windows Terminal成功以后又能打开了。不知道IDEA会不会又出问题🤔</p>
+<p>本来只是在Linux里面解压文件失败了，想说图形界面操作吧，搞了这么一出，解压只有到明天了😳</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://vicky128.github.io/post/windows10-shang-an-zhuang-de-ubuntu-zhao-bu-dao-wen-jian-lu-jing/">
+              <h3 class="post-title">
+                Windows10上安装的Ubuntu找不到文件路径
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'a946a966a6819e9bcd90',
+    clientSecret: '9e59c4346daf47822352c70e7d5e29b9df7ffe3b',
+    repo: 'vicky128.github.io',
+    owner: 'vicky128',
+    admin: ['vicky128'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://vicky128.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>一切又重新开始 | Viv&#39;s Blog</title>
+<link rel="shortcut icon" href="https://vicky128.github.io/favicon.ico?v=1653270885804">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://vicky128.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="一切又重新开始 | Viv&#39;s Blog - Atom Feed" href="https://vicky128.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="docker的centos7不能与IDEA连接，思考过后选择在Ubuntu上重来，也不用docker连接了。
+azkaban第一个安装成功，涉及到编译可以看
+Ubuntu20.04集群部署Azkaban4.0.0
+前面部分，安装的openj..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://vicky128.github.io">
+  <img class="avatar" src="https://vicky128.github.io/images/avatar.png?v=1653270885804" alt="">
+  </a>
+  <h1 class="site-title">
+    Viv&#39;s Blog
+  </h1>
+  <p class="site-description">
+    每天进步一点点
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/vicky128" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              一切又重新开始
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-04-07
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>docker的centos7不能与IDEA连接，思考过后选择在Ubuntu上重来，也不用docker连接了。</p>
+<h2 id="azkaban第一个安装成功涉及到编译可以看">azkaban第一个安装成功，涉及到编译可以看</h2>
+<p><a href="https://blog.csdn.net/Xin_101/article/details/117448591">Ubuntu20.04集群部署Azkaban4.0.0</a><br>
+前面部分，安装的openjdk，git可以不用登录直接用</p>
+<p><code>Task :az-exec-util:linkMainExecutable FAILED /usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-redhat-linux/4.8.5/libstdc++.so when searching for -lstdc++ /usr/bin/ld: cannot find -lstdc++ /usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-redhat-linux/4.8.5/libgcc_s.so when searching for -lgcc_s /usr/bin/ld: cannot find -lgcc_s collect2: error: ld returned 1 exit status</code><br>
+<code> Task :az-crypto:compileJava FROM-CACHE</code><br>
+<code> Task :az-core:jar FAILURE: Build failed with an exception.</code><br>
+<code>* What went wrong:</code><br>
+<code>Execution failed for task ':az-exec-util:linkMainExecutable. A build operation failed.       Linker failed while linking main.   See the complete log at: file:///azkaban/az-exec-util/build/tmp/linkMainExecutable/output.txt   Try: Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.  Get more help at https://help.gradle.org Deprecated Gradle features were used in this build, making it incompatible with Gradle 6.0. Use '--warning-mode all' to show the individual deprecation warnings. See https://docs.gradle.org/5.0/userguide/command_line_interface.html#sec:command_line_warnings BUILD FAILED in 2s 28 actionable tasks: 13 executed, 4 from cache, 11 up-to-date</code></p>
+<p>解决方法：<strong>yum install glibc-devel.i686 libgcc.i686 libstdc++-devel.i686</strong></p>
+<h2 id="mongodb还遇到一个特别棘手的问题找不到libsslso10解决方法如下">mongodb还遇到一个特别棘手的问题：找不到libssl.so.10，解决方法如下：</h2>
+<p><a href="https://henchat.net/%E6%89%BE%E4%B8%8D%E5%88%B0libssl-so-10%E7%9A%84%E7%BB%88%E6%9E%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-ubuntu-18/">找不到libssl.so.10的终极解决方案 – Ubuntu 18</a></p>
+<h2 id="redis出错">redis出错：</h2>
+<p><code>Could not connect to Redis at 127.0.0.1:6379: Connection refused Could not connect to Redis at 127.0.0.1:6379: Connection refused not connected&gt;</code></p>
+<p>可能原因是没有配置文件里写的目录。</p>
+<h2 id="elasticsearch报的错是这个">elasticsearch报的错是这个：</h2>
+<p><code>Exception in thread &quot;main&quot; 2022-04-07 13:09:53,693 main ERROR No log4j2 configuration file found. Using default configuration: logging only errors to the console. Set system property 'log4j2.debug' to show Log4j2 internal initialization logging.2022-04-07 13:09:53,814 main ERROR Could not register mbeans java.security.AccessControlException: access denied (&quot;javax.management.MBeanTrustPermission&quot; &quot;register&quot;)</code></p>
+<p>解决方法：不能用root运行，而且还要<strong>chown -R 用户 具体到对应的elaticsearch文件夹</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://vicky128.github.io/post-images/1649310302723.png" alt="" loading="lazy"></figure>
+<h2 id="spark的报错">spark的报错：</h2>
+<p><code>org.apache.spark.deploy.master.Master running as process 6022.  Stop it first.</code>（影响不大，没有管）<br>
+<code>localhost: ssh: connect to host localhost port 22: Connection refused</code><br>
+第二个解决方法是以下两个结合起来解决的：<br>
+<a href="https://www.jianshu.com/p/f8efebebebe2">win10 WSL fro ubuntu18 开启ssh的方法</a></p>
+<p><a href="https://jimolonely.github.io/2019/09/15/linux/031-ubuntu-ssh-connection-refuesd/">ubuntu localhost:ssh:connect to host localhost port 22:Connection refused</a></p>
+<p>kafka最开始的报错是因为没有把linux改为localhost，但是第二条命令：<br>
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic recommender执行的非常慢，但应该是正确的。</p>
+<p><em>本来还以为会多费时间，没想到六个小时左右就配好了，有了之前摸石头过河的经验确实很快，虽然这次和之前也不一样，之前是在ubuntu里面配置，但是后面c盘空间不够了（VM也是觉得占用空间太大放弃了），就转移到其他盘，直接就是root，是有些问题的，开始勉强能用，但因为给的命令都是centos那挂的，涉及到一些编译啥的，觉得麻烦还是打算换成centos，看的一个视频里面有docker，就想着把他们结合起来。那个时候搜说centos8已经不再维护，就选的7。期间也有些很棘手的问题，但都解决了。没想到压死骆驼的最后一根稻草是IDEA连接docker不成功，centos7就是改不了那个配置文件，我试了找的所有办法，都不行。其实第一次花了很多时间还因为完全按照那个文档来，改主机名这些额外的东西就花了很久。最后只好从头开始，这次把残留的Ubuntu删除了，从最开始就把它安装到别的盘，正常。第二天开始正式配的环境。</em></p>
+<p>感觉该做的事情是真的逃不掉，一个都不会少。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#azkaban%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F%E6%B6%89%E5%8F%8A%E5%88%B0%E7%BC%96%E8%AF%91%E5%8F%AF%E4%BB%A5%E7%9C%8B">azkaban第一个安装成功，涉及到编译可以看</a></li>
+<li><a href="#mongodb%E8%BF%98%E9%81%87%E5%88%B0%E4%B8%80%E4%B8%AA%E7%89%B9%E5%88%AB%E6%A3%98%E6%89%8B%E7%9A%84%E9%97%AE%E9%A2%98%E6%89%BE%E4%B8%8D%E5%88%B0libsslso10%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E5%A6%82%E4%B8%8B">mongodb还遇到一个特别棘手的问题：找不到libssl.so.10，解决方法如下：</a></li>
+<li><a href="#redis%E5%87%BA%E9%94%99">redis出错：</a></li>
+<li><a href="#elasticsearch%E6%8A%A5%E7%9A%84%E9%94%99%E6%98%AF%E8%BF%99%E4%B8%AA">elasticsearch报的错是这个：</a></li>
+<li><a href="#spark%E7%9A%84%E6%8A%A5%E9%94%99">spark的报错：</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://vicky128.github.io/post/tuo-liao-liang-ge-yue-de-huan-jing-pei-zhi/">
+              <h3 class="post-title">
+                拖了两个月的环境配置
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'a946a966a6819e9bcd90',
+    clientSecret: '9e59c4346daf47822352c70e7d5e29b9df7ffe3b',
+    repo: 'vicky128.github.io',
+    owner: 'vicky128',
+    admin: ['vicky128'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://vicky128.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

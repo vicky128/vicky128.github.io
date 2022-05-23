@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://vicky128.github.io</id>
+    <title>Viv&apos;s Blog</title>
+    <updated>2022-05-23T01:54:49.382Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://vicky128.github.io"/>
+    <link rel="self" href="https://vicky128.github.io/atom.xml"/>
+    <subtitle>每天进步一点点</subtitle>
+    <logo>https://vicky128.github.io/images/avatar.png</logo>
+    <icon>https://vicky128.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, Viv&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[家对我来说是慢性毒药]]></title>
+        <id>https://vicky128.github.io/post/jia-dui-wo-lai-shuo-shi-man-xing-du-yao/</id>
+        <link href="https://vicky128.github.io/post/jia-dui-wo-lai-shuo-shi-man-xing-du-yao/">
+        </link>
+        <updated>2022-05-17T14:09:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[查重的血泪教训]]></title>
+        <id>https://vicky128.github.io/post/cha-chong-de-xie-lei-jiao-xun/</id>
+        <link href="https://vicky128.github.io/post/cha-chong-de-xie-lei-jiao-xun/">
+        </link>
+        <updated>2022-05-16T13:46:09.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[最近的状态不好]]></title>
+        <id>https://vicky128.github.io/post/zui-jin-de-zhuang-tai-bu-hao/</id>
+        <link href="https://vicky128.github.io/post/zui-jin-de-zhuang-tai-bu-hao/">
+        </link>
+        <updated>2022-05-08T05:05:18.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[正式运行、调试程序]]></title>
+        <id>https://vicky128.github.io/post/zheng-shi-yun-xing-diao-shi-cheng-xu/</id>
+        <link href="https://vicky128.github.io/post/zheng-shi-yun-xing-diao-shi-cheng-xu/">
+        </link>
+        <updated>2022-04-07T09:30:23.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一切又重新开始]]></title>
+        <id>https://vicky128.github.io/post/yi-qie-you-chong-xin-kai-shi-docker-de-centos7-bu-neng-yu-idea-lian-jie/</id>
+        <link href="https://vicky128.github.io/post/yi-qie-you-chong-xin-kai-shi-docker-de-centos7-bu-neng-yu-idea-lian-jie/">
+        </link>
+        <updated>2022-04-07T02:22:31.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[拖了两个月的环境配置]]></title>
+        <id>https://vicky128.github.io/post/tuo-liao-liang-ge-yue-de-huan-jing-pei-zhi/</id>
+        <link href="https://vicky128.github.io/post/tuo-liao-liang-ge-yue-de-huan-jing-pei-zhi/">
+        </link>
+        <updated>2022-04-02T14:22:14.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[柳暗花明又一村]]></title>
+        <id>https://vicky128.github.io/post/liu-an-hua-ming-you-yi-cun/</id>
+        <link href="https://vicky128.github.io/post/liu-an-hua-ming-you-yi-cun/">
+        </link>
+        <updated>2022-01-14T12:46:50.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[WSL注意事项Ubuntu]]></title>
+        <id>https://vicky128.github.io/post/ubuntu-jin-ru-root-shi-sudo-su-bu-shi-su/</id>
+        <link href="https://vicky128.github.io/post/ubuntu-jin-ru-root-shi-sudo-su-bu-shi-su/">
+        </link>
+        <updated>2022-01-13T09:53:06.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows Terminal安装]]></title>
+        <id>https://vicky128.github.io/post/windows-terminal-an-zhuang/</id>
+        <link href="https://vicky128.github.io/post/windows-terminal-an-zhuang/">
+        </link>
+        <updated>2022-01-12T12:03:08.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows10上安装的Ubuntu找不到文件路径]]></title>
+        <id>https://vicky128.github.io/post/windows10-shang-an-zhuang-de-ubuntu-zhao-bu-dao-wen-jian-lu-jing/</id>
+        <link href="https://vicky128.github.io/post/windows10-shang-an-zhuang-de-ubuntu-zhao-bu-dao-wen-jian-lu-jing/">
+        </link>
+        <updated>2022-01-11T11:50:32.000Z</updated>
+    </entry>
+</feed>

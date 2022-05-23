@@ -1,0 +1,305 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>正式运行、调试程序 | Viv&#39;s Blog</title>
+<link rel="shortcut icon" href="https://vicky128.github.io/favicon.ico?v=1653270885804">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://vicky128.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="正式运行、调试程序 | Viv&#39;s Blog - Atom Feed" href="https://vicky128.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="直接运行全部程序的dataloder，启动mongodb，spark，elasticsearch以后运行程序发生了3个错误：
+1
+Failed to locate the winutils binary in the hadoop bina..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://vicky128.github.io">
+  <img class="avatar" src="https://vicky128.github.io/images/avatar.png?v=1653270885804" alt="">
+  </a>
+  <h1 class="site-title">
+    Viv&#39;s Blog
+  </h1>
+  <p class="site-description">
+    每天进步一点点
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/vicky128" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              正式运行、调试程序
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-04-07
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>直接运行全部程序的dataloder，启动mongodb，spark，elasticsearch以后运行程序发生了3个错误：</p>
+<h2 id="1">1</h2>
+<p><code>Failed to locate the winutils binary in the hadoop binary path java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.</code><br>
+解决方法：<br>
+<a href="http://www.yaowenming.com/A/lk5ane3od1/">在Windows上运行Spark程序</a></p>
+<p><strong>then in program add following line before creating SparkContext or SparkConf System.setProperty(&quot;hadoop.home.dir&quot;, &quot;C:\Hadoop&quot;);</strong></p>
+<h2 id="2">2</h2>
+<p><code>ERROR StatusLogger Log4j2 could not find a logging implementation. Please add log4j-core to the classpath. Using SimpleLogger to log to the console...</code><br>
+解决方法：<br>
+<a href="http://www.noobyard.com/article/p-kmjghvaq-uq.html">struts2.5.20 解决not find a logging implementation. Please add log4j-core to the classpath问题</a></p>
+<h2 id="3">3</h2>
+<p><code>Exception in thread &quot;main&quot; NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{97oEzhFrQPm5opr9DuUDTg}{localhost}{127.0.0.1:9300}]]</code><br>
+这个问题直到最后都没解决。</p>
+<hr>
+<p>在改的途中我还发现一个问题：就是在vscode里面curl localhost:9200是正常的，但是网页打不开，而且我修改cluster.name以后显示的还是之前的名称。杀死进程以后才变了。<br>
+第二天一打开之前的网页又可以了，但是集群名称还是之前那个，再一刷新就没了。<br>
+看了下log文件发现报错：</p>
+<p><code>[2] bootstrap checks failed [1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]</code></p>
+<p>都说要改ulimit但是在root改了出来就不行了，ulimit -n 65536在root可行，但是其他用户就不行，sudo ulimit -n 65536会报错：<a href="https://www.linuxidc.com/Linux/2019-08/159734.htm">这个是我找到的对elasticsearch问题比较全面清晰的解决方法了</a></p>
+<p><code>sudo: ulimit: command not found</code></p>
+<p>试了很多方法都不行，直到我看到这个<a href="https://www.cnblogs.com/qiumingcheng/p/11668423.html">sudo: ulimit: command not found</a>，用这个命令就可以了：</p>
+<p><strong>sudo sh -c &quot;ulimit -n 65535 &amp;&amp; exec su $LOGNAME&quot;</strong></p>
+<p>这次网页也不会报错了。</p>
+<hr>
+<p>再次运行没想到报错：<br>
+<code>ERROR StatusLogger Log4j2 could not find a logging implementation. Please add log4j-core to the classpath. Using SimpleLogger to log to the console...</code></p>
+<p>明明昨天已经解决了，解决方法是导入依赖：</p>
+<pre><code>    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+        &lt;artifactId&gt;log4j-to-slf4j&lt;/artifactId&gt;
+        &lt;version&gt;2.11.1&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre>
+<p>但是elasticsearch还是报错</p>
+<hr>
+<p>换了个程序重来，报错：<br>
+<code>Exception in thread &quot;main&quot; org.elasticsearch.hadoop.EsHadoopIllegalArgumentException: Cannot detect ES version - typically this happens if the network/Elasticsearch cluster is not accessible or when targeting a WAN/Cloud instance without the proper setting 'es.nodes.wan.only'</code><br>
+解决方法：修改pom里的ES版本号，和运行的一致。</p>
+<p><code>Caused by: org.elasticsearch.hadoop.rest.EsHadoopNoNodesLeftException: Connection error (check network and/or proxy settings)- all nodes failed; tried [[localhost:9200]] </code><br>
+解决方法：把url地址改正确就行<br>
+是第二天运行ES的时候启动不成功，看elasticsearch.yml出现了一个IP，然后鬼使神差的我就用这个IP把程序里的改了，没想到能运行成功。但是昨天我也是查看自己的IP放进去运行了，但是不成功。今天查看两个IP地址确实不一样。<br>
+<img src="https://vicky128.github.io/post-images/1649477538946.png" alt="" loading="lazy"></p>
+<p><code>ERROR StatusLogger Log4j2 could not find a logging implementation. Please add log4j-core to the classpath. Using SimpleLogger to log to the console...</code><br>
+解决方法：<br>
+<a href="https://segmentfault.com/a/1190000040398579">ERROR StatusLogger Log4j2 could not find a logging</a><br>
+log4j.properties原始数据：<br>
+log4j.rootLogger=info, stdout（<strong>其实就是把这两个改成了WARN和console</strong>）<br>
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender<br>
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout<br>
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS}  %5p --- [%50t]  %-80c(line:%5L)  :  %m%n</p>
+<p>到目前为止，第一个dataloader已经可以正常运行了。注意后续要改IP</p>
+<p>看视频的时候发现在zookeeper和kafka启动以后，jps是有额外的内容的，但是我的没有发现，但我又确确实实是启动了没有报错啊，然后用英语搜索的时候找到的答案：启动命名带了sudo，那么jps也要加sudo。<br>
+但是我的卡夫卡必须要用root运行，但是在运行StreamingRecommender的时候，Kafka的第二个命令 bin/kafka-console-producer.sh --broker-list localhost:9092 --topic recommender没有反应，我甚至还把recommender删了重建也不行。<br>
+第一次删除：<br>
+<strong>bin/kafka-topics.sh --delete --zookeeper localhost:2181 --topic recommender</strong><br>
+<a href="https://blog.csdn.net/ccsynl/article/details/111190534">kafka创建删除查看topic的命令</a><br>
+显示<br>
+<code>Topic recommender is marked for deletion. Note: This will have no impact if delete.topic.enable is not set to true.</code><br>
+第二次彻底删除了：<br>
+<strong>rmr /brokers/topics/recommender</strong><br>
+<a href="https://blog.csdn.net/hxc2101/article/details/114444765">Kafka消费不到数据/消费者没有反应</a><br>
+<a href="https://blog.csdn.net/YG_wangxinA/article/details/107943117">kafka删除topic时提示 Command not found rmr。</a></p>
+<hr>
+<p>在删除以后还是不行，然后重启电脑，但是发现程序报错了（什么都没改）：<br>
+<code>Exception in thread &quot;main&quot; com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreferenceServerSelector{readPreference=primary}. Client view of cluster state is {type=UNKNOWN, servers=[{address=172.28.224.126:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.SocketTimeoutException: connect timed out}}]</code><br>
+百思不得其解，明明mongodb已经启动的，改不了，第二天运行还是这个错，这个时候又看了下elasticsearch的日志，发现IP变了。所以其实每次开关机后IP地址都会变化。改了以后就没错了。但是kafka还是没反应，我在它的某个日志里面看到了一个错误：<br>
+<code>ERROR Controller 0 epoch 15 initiated state change for partition [log,0] from OfflinePartition to OnlinePartition failed (state.change.logger) kafka.common.NoReplicaOnlineException: No replica for partition [log,0] is alive. Live brokers are: [Set()], Assigned replicas are: [List(0)]</code><br>
+去搜好像也没有人解决。试过kafka删了：为什么删是因为在我的印象中我第一次安装好运行kafka-console-producer的时候是有&gt;让我输入内容的，但是后面就再也没有了。甚至一度把zookeeper也删了重来也无济于事。</p>
+<p>我去搜kafka视频的时候看到博主开了四个窗口：<br>
+一个启动zookeeper：<strong>bin/zookeeper-server-start.sh config/zookeeper.properties</strong><br>
+一个启动kafka：<strong>bin/kafka-server-start.sh config/server.properties</strong>（注意不要加--daemon静默启动，要不然报错都不知道）<br>
+一个运行kafka-console-produce发送消息：<strong>bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test</strong><br>
+一个运行kafka-console-consumer接收信息：<strong>bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning</strong><br>
+这个时候就是正常的。</p>
+<p>可是我看教学视频调试的时候，他是在wsl里面运行的kafka-console-producer命令，然后输入内容，运行程序，程序是有显示的。我就算输入内容了，也没有显示。</p>
+<p>突然想起来他不是以root权限启动kafka的，我的会报错没有权限，去看了下以普通用户启动报错内容：<br>
+<code>FATAL Fatal error during KafkaServerStartable startup. Prepare to shutdown (kafka.server.KafkaServerStartable) java.io.FileNotFoundException: /tmp/kafka-logs/.lock (Permission denied)</code><br>
+解决方法：<br>
+<strong>sudo chmod -R 777 /tmp/kafka-logs/</strong><br>
+来源：<a href="https://blog.csdn.net/py_tamir/article/details/85393344">解决安装Kafka 非root用户不能正常启动的问题</a><br>
+还是没用</p>
+<p>后来我怀疑是redis的问题，因为我看他输入的那串字符是1|1271|4.5|1554276432，我的redis里面没有uid为1的，然后我又输了一些数据进去并且改为我有的数据，但数据还是没反应。</p>
+<p>又开始执行第一版程序了，不出意外报错：<br>
+<code>Exception in thread &quot;main&quot; NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{gQJbv95QRvW9ujsq4QEU9w}{localhost}{127.0.0.1:9300}]]</code></p>
+<p>我把elasticsearch.yml中的network.host: 0.0.0.0改为了localhost，启动以后elasticsearch.log的地址就变为了127.0.0.1。<br>
+<img src="https://vicky128.github.io/post-images/1649588250861.png" alt="" loading="lazy"><br>
+突然想把localhost改为自己的ip，一运行果然是成功的。所以第二版的程序有些人就单处把它择出来了。</p>
+<hr>
+<p>直接运行maven的tomcat报错：<br>
+<code>Unable to process Jar entry [module-info.class] from Jar [jar:file:/C:/Users/viv/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.11.1/jackson-annotations-2.11.1.jar!/] for annotations org.apache.tomcat.util.bcel.classfile.ClassFormatException: Invalid byte tag in constant pool: 19</code><br>
+解决方法：<br>
+<a href="https://blog.csdn.net/qq_44381501/article/details/107216430">Unable to process Jar entry [module-info.class] from Jar类似错误的解决方法</a></p>
+<p><code>Unable to process Jar entry [META-INF/versions/9/module-info.class] from Jar [jar:file:/C:/Users/viv/.m2/repository/org/apache/logging/log4j/log4j-api/2.13.2/log4j-api-2.13.2.jar!/] for annotations org.apache.tomcat.util.bcel.classfile.ClassFormatException: Invalid byte tag in constant pool: 19</code><br>
+解决方法：log4j版本高，换个低的。<br>
+<a href="http://www.codingwhy.com/view/8701.html">elasticsearch启动报错：Unable to process Jar entry [META-INF/versions/9/module-info.class] from Jar [jar:file:log4j-api-2.11.1.jar!/] for annotations</a></p>
+<hr>
+<p>突然结尾：</p>
+<p>因为deadline逼近，不得己找人调试，其实也没有调出来，直接给的成品。直接打算放弃卡夫卡了，因为自己的内存只有8G，说是要16G才行。所以其实真正需要的环境就只有mongodb，redis，elasticsearch。以及想要修改前端代码，但是完全看不懂，因为是angular cli。跟我们平时学的那种简单的前端不一样，根本无从下手去改。</p>
+<p>不过我之前配置的时候也想过要在vm里面安装centos6.9的镜像，但是怕空间不够，因为其实有好多人都是这样的，我看到的另一个演示视频用到了xshell，我也想下，但是无从下手。所以最后选择了跟教学视频一样的WSL环境。但是运行卡夫卡的时候失败了。然后我就不知道该怎么办了。</p>
+<p>所以我花了那么多时间配置环境，到头来被别人全盘否定了。但是我还是打算把它记录下来。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://vicky128.github.io/post/yi-qie-you-chong-xin-kai-shi-docker-de-centos7-bu-neng-yu-idea-lian-jie/">
+              <h3 class="post-title">
+                一切又重新开始
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'a946a966a6819e9bcd90',
+    clientSecret: '9e59c4346daf47822352c70e7d5e29b9df7ffe3b',
+    repo: 'vicky128.github.io',
+    owner: 'vicky128',
+    admin: ['vicky128'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://vicky128.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
